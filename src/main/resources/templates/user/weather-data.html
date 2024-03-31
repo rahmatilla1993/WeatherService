@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="~{fragments :: head(~{::title}, ~{::link})}">
+    <meta charset="UTF-8">
+    <title>Weather data by subscribe location</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<div class="container mt-2">
+    <div class="rows">
+        <div class="col-8 offset-2">
+            <nav th:replace="~{fragments :: navbar}"></nav>
+            <h1 class="text-center mt-3">Weather Data</h1>
+            <form method="get" action="/weathers/bySubscribe">
+                <label for="weather">Choose a weather type</label>
+                <select id="weather" name="weatherType">
+                    <option value="day" selected="selected">1 DAY</option>
+                    <option value="week">1 WEEK</option>
+                    <option value="month">1 MONTH</option>
+                </select>
+                <button type="submit" class="btn btn-success">Get</button>
+            </form>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Temperature</th>
+                    <th scope="col">Humidity</th>
+                    <th scope="col">Pressure</th>
+                    <th scope="col">WindSpeed</th>
+                    <th scope="col">Precipitation</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="waether : ${weathers}" th:object="${waether}">
+                    <td th:text="*{temperature}"></td>
+                    <td th:text="*{humidity}"></td>
+                    <td th:text="*{pressure}"></td>
+                    <td th:text="*{windSpeed}"></td>
+                    <td th:text="*{precipitation}"></td>
+                    <td th:text="*{location}"></td>
+                    <td th:text="*{date}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<section th:replace="~{fragments :: js}"></section>
+</body>
+</html>

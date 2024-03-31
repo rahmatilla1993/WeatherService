@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="~{fragments :: head(~{::title}, ~{::link})}">
+    <meta charset="UTF-8">
+    <title>All cities</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<div class="container mt-2">
+    <div class="rows">
+        <div class="col-8 offset-2">
+            <nav th:replace="~{fragments :: navbar}"></nav>
+            <h1 class="text-center mt-3">Locations</h1>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Latitude</th>
+                    <th scope="col">Longitude</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="location : ${locations}" th:object="${location}">
+                    <td th:text="*{id}"></td>
+                    <td th:text="*{name}"></td>
+                    <td th:text="*{latitude}"></td>
+                    <td th:text="*{longitude}"></td>
+                    <td>
+                        <a th:href="@{/users/locations/subscribe/{id}(id=*{id})}"
+                           th:with="email=${#authentication.getName()}"
+                           th:attrprepend="class=${location.subscribeUserEmails.contains(email) ? 'btn btn-danger' : 'btn btn-success'}"
+                           th:text="${location.subscribeUserEmails.contains(email) ? 'Unsubscribe' : 'Subscribe'}">
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<section th:replace="~{fragments :: js}"></section>
+</body>
+</html>

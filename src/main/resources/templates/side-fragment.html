@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="~{fragments :: head(~{::title}, ~{::link})}">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="rows">
+        <div class="col-10 offset-1">
+            <nav th:replace="~{fragments :: navbar}"></nav>
+            <div class="d-flex mt-4">
+                <div class="collapse d-lg-block sidebar collapse bg-white" th:fragment="sidebar">
+                    <div class="position-sticky">
+                        <div class="list-group list-group-flush mx-3 mt-4">
+                            <a th:href="@{/admin/users}"
+                               class="list-group-item list-group-item-action py-2 ripple"
+                               aria-current="true">
+                                <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>User Lists</span>
+                            </a>
+                            <a th:href="@{/locations}"
+                               class="list-group-item list-group-item-action py-2 ripple">
+                                <i class="fas fa-chart-area fa-fw me-3"></i><span>Cities List</span>
+                            </a>
+                            <a th:href="@{/weathers}"
+                               class="list-group-item list-group-item-action py-2 ripple">
+                                <i class="fas fa-chart-area fa-fw me-3"></i><span>Weather Data</span>
+                            </a>
+                            <a th:href="@{/locations/add}"
+                               class="list-group-item list-group-item-action py-2 ripple"
+                            ><i class="fas fa-lock fa-fw me-3"></i><span>City add</span></a>
+                            <a th:href="@{/weathers/add}"
+                               class="list-group-item list-group-item-action py-2 ripple"
+                            ><i class="fas fa-lock fa-fw me-3"></i><span>Weather add</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section th:replace="~{fragments :: js}"></section>
+</body>
+</html>

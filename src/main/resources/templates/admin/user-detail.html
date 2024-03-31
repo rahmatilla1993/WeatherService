@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="~{fragments :: head(~{::title}, ~{::link})}">
+    <meta charset="UTF-8">
+    <title>User Details</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="rows">
+        <div class="col-10 offset-1">
+            <nav th:replace="~{fragments :: navbar}"></nav>
+            <div class="d-flex mt-4">
+                <div th:replace="~{side-fragment :: sidebar}"></div>
+                <div class="flex-grow-1 p-5">
+                    <form th:method="post" th:object="${user}" th:action="@{/admin/users/edit/{id}(id=*{id})}">
+                        <input type="hidden" value="put" name="_method">
+                        <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}">
+                        <div class="mb-3">
+                            <label for="firstname" class="form-label">Firstname</label>
+                            <input type="text" class="form-control" id="firstname" name="firstName"
+                                   th:field="*{firstName}">
+                            <div th:if="${#fields.hasErrors('firstName')}">
+                                <p class="text-danger"
+                                   th:errors="*{firstName}">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastname" class="form-label">Lastname</label>
+                            <input type="text" class="form-control" id="lastname" name="lastName"
+                                   th:field="*{lastName}">
+                            <div th:if="${#fields.hasErrors('lastName')}">
+                                <p class="text-danger"
+                                   th:errors="*{lastName}">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="email" name="email" th:field="*{email}"
+                                   readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cities" class="form-label">Subscribe cities</label>
+                            <select id="cities" class="form-select">
+                                <option th:each="city : ${user.citiesNames}" th:text="${city.toUpperCase()}"></option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <select name="status" id="status" class="form-select">
+                                <option value="ACTIVE" th:selected="*{status == 'ACTIVE'}">ACTIVE</option>
+                                <option value="BLOCKED" th:selected="*{status == 'BLOCKED'}">BLOCKED</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success">Edit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section th:replace="~{fragments :: js}"></section>
+</body>
+</html>

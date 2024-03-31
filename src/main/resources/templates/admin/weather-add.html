@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="~{fragments :: head(~{::title}, ~{::link})}">
+    <meta charset="UTF-8">
+    <title>Weather add</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="rows">
+        <div class="col-10 offset-1">
+            <nav th:replace="~{fragments :: navbar}"></nav>
+            <div class="d-flex mt-4">
+                <div th:replace="~{side-fragment :: sidebar}"></div>
+                <div class="flex-grow-1 p-5">
+                    <form th:method="post" th:object="${weather}">
+                        <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}">
+                        <div class="mb-3">
+                            <label for="temperature" class="form-label">Temperature</label>
+                            <input type="number" class="form-control" id="temperature"
+                                   th:field="*{temperature}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="humidity" class="form-label">Humidity</label>
+                            <input type="number" class="form-control" id="humidity"
+                                   th:field="*{humidity}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="pressure" class="form-label">Pressure</label>
+                            <input type="number" class="form-control" id="pressure"
+                                   th:field="*{pressure}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="windSpeed" class="form-label">WindSpeed</label>
+                            <input type="number" class="form-control" id="windSpeed"
+                                   th:field="*{windSpeed}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="precipitation" class="form-label">Precipitation</label>
+                            <input type="number" class="form-control" id="precipitation"
+                                   th:field="*{precipitation}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="date" class="form-label">Date</label>
+                            <input type="date" class="form-control" id="date"
+                                   th:field="*{date}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="location" class="form-label">Location</label>
+                            <select name="location" id="location" class="form-select">
+                                <option th:each="city : ${cities}"
+                                        th:text="${city}" th:attr="value=${city}">
+                                </option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section th:replace="~{fragments :: js}"></section>
+</body>
+</html>

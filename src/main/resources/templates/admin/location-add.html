@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="~{fragments :: head(~{::title}, ~{::link})}">
+    <meta charset="UTF-8">
+    <title>Add location</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="rows">
+        <div class="col-10 offset-1">
+            <nav th:replace="~{fragments :: navbar}"></nav>
+            <div class="d-flex mt-4">
+                <div th:replace="~{side-fragment :: sidebar}"></div>
+                <div class="flex-grow-1 p-5">
+                    <form th:method="post" th:object="${location}">
+                        <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}">
+                        <div class="mb-3">
+                            <label for="locationName" class="form-label">City name</label>
+                            <input type="text" class="form-control" id="locationName" name="locationName"
+                                   th:field="*{name}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="latitude" class="form-label">Latitude</label>
+                            <input type="number" class="form-control" id="latitude" name="latitude"
+                                   th:field="*{latitude}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="longitude" class="form-label">Longitude</label>
+                            <input type="number" class="form-control" id="longitude"
+                                   name="longitude" th:field="*{longitude}">
+                        </div>
+                        <button type="submit" class="btn btn-success">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section th:replace="~{fragments :: js}"></section>
+</body>
+</html>

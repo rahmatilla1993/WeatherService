@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="~{fragments :: head(~{::title}, ~{::link})}">
+    <meta charset="UTF-8">
+    <title>Locations list</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="rows">
+        <div class="col-10 offset-1">
+            <nav th:replace="~{fragments :: navbar}"></nav>
+            <div class="d-flex mt-4">
+                <div th:replace="~{side-fragment :: sidebar}"></div>
+                <div class="flex-grow-1 p-5">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Latitude</th>
+                            <th scope="col">Longitude</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="location : ${locations}" th:object="${location}">
+                            <td th:text="*{id}"></td>
+                            <td th:text="*{name}"></td>
+                            <td th:text="*{latitude}"></td>
+                            <td th:text="*{longitude}"></td>
+                            <td>
+                                <a th:href="@{/locations/edit/{id}(id=*{id})}" class="btn btn-success">Edit</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section th:replace="~{fragments :: js}"></section>
+<!-- MDB -->
+<script
+        type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.umd.min.js"
+></script>
+</body>
+</html>
